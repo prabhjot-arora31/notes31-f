@@ -10,7 +10,7 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const { data } = await axios.post(
-      "https://backend-f8amcudyr-prabhjotarora31s-projects.vercel.app/login",
+      "https://notes-app-backend-3112.vercel.app/login",
       data1,
       {
         headers: {

@@ -28,7 +28,7 @@ const DetailNote = () => {
     var userrId = cookie.substring(15, cookie.length - 1);
     setuserId(userrId);
     const { data } = await axios.post(
-      `https://backend-f8amcudyr-prabhjotarora31s-projects.vercel.app/view-note/${id}`,
+      `https://notes-app-backend-3112.vercel.app/view-note/${id}`,
       {
         id: userrId,
       }
@@ -175,7 +175,7 @@ const DetailNote = () => {
                       onClick={() => {
                         const updateNote = async () => {
                           const { data } = await axios.post(
-                            `https://backend-f8amcudyr-prabhjotarora31s-projects.vercel.app/update-note/${id}`,
+                            `https://notes-app-backend-3112.vercel.app/update-note/${id}`,
                             editData
                           );
                           console.log(data);

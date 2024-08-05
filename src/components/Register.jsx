@@ -18,7 +18,7 @@ const Register = () => {
     setLoading(true);
     const { data } = await axios
       .post(
-        "https://backend-f8amcudyr-prabhjotarora31s-projects.vercel.app/register",
+        "https://notes-app-backend-3112.vercel.app/register",
         userData
       )
       .catch((err) => {
@@ -35,7 +35,7 @@ const Register = () => {
     <div>
       <form
         onSubmit={(e) => {
-          // action="https://backend-f8amcudyr-prabhjotarora31s-projects.vercel.app/register"
+          // action="https://notes-app-backend-3112.vercel.app/register"
           onSubmit(e);
         }}
         method="post"
