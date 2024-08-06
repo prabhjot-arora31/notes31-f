@@ -34,6 +34,7 @@ const Register = () => {
   return (
     <div>
       <form
+        className="p-4"
         onSubmit={(e) => {
           // action="https://notes-app-backend-3112.vercel.app/register"
           onSubmit(e);
