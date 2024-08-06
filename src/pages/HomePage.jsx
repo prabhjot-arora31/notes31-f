@@ -19,7 +19,7 @@ const HomePage = () => {
   const fetchData = async () => {
     console.log("before fetching user details , id is:", id);
     const { data } = await axios.get(
-      `https://notes-app-backend-3112.vercel.app/home/${id}`
+      `http://localhost:3001/home/${id}`
     );
     dispatch(LoggedInUser(data));
     setLoading(false);

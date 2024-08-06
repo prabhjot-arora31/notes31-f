@@ -23,7 +23,7 @@ const ProfilePage = () => {
     const fetchIt = async () => {
       try {
         const { data } = await axios.post(
-          `https://notes-app-backend-3112.vercel.app/user-details/${id.id}`
+          `http://localhost:3001/user-details/${id.id}`
         );
         console.log("data is : ", data);
         setUserDetails(data);
@@ -168,7 +168,7 @@ const ProfilePage = () => {
                     onClick={() => {
                       const update = async () => {
                         const { data } = await axios.post(
-                          `https://notes-app-backend-3112.vercel.app/profile-update/${id.id}`,
+                          `http://localhost:3001/profile-update/${id.id}`,
                           userDetails
                         );
                         console.log(data);
