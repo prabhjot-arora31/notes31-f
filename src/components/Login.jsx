@@ -31,6 +31,7 @@ const Login = () => {
   return (
     <div>
       <form
+        className="p-4"
         style={{ maxWidth: "400px", margin: "0 auto" }}
         onSubmit={(e) => {
           onSubmit(e);
