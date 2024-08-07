@@ -37,13 +37,17 @@ const Register = () => {
           });
         setLoading(false);
         dispatch(SetUserData({ name: "", email: "", password: "" }));
-        if (data.msg == "User created") setMessage(`Registration Successful`);
-        setUserData({ name: "", email: "", password: "" });
-        //console.log(data);
-        seterror("");
-        setTimeout(() => {
-          navigate("/notes-app-31/login");
-        }, 2000);
+        if (data.msg == "User created") {
+          setMessage(`Registration Successful`);
+          setUserData({ name: "", email: "", password: "" });
+          //console.log(data);
+          seterror("");
+          setTimeout(() => {
+            navigate("/notes-app-31/login");
+          }, 2000);
+        } else if (data.msg == "User already exists!") {
+          seterror("User already exists!!");
+        }
       }
     } else {
       // alert("PLease enter all the fieldas");
