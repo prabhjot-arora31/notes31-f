@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { LoggedInUser, SetToast } from "../redux/actions/actions";
+import { LoggedInUser, SETID, SetToast } from "../redux/actions/actions";
 import NotesDisplay from "../components/NotesDisplay";
 import NoteCreator from "../components/NoteCreator";
 
@@ -13,36 +13,47 @@ const HomePage = () => {
   const toast = useSelector((state) => state.SetToastReducer);
   const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.LoggedInUser);
+  const USERID = useSelector((state) => state.SetIdReducer);
   const whatToDisplay = useSelector(
     (state) => state.DisplayAndCreateNoteReducer
   );
   const fetchData = async () => {
-    console.log("before fetching user details , id is:", id);
-    const { data } = await axios.get(
-      `http://localhost:3001/home/${id}`
+    //console.log("before fetching user details , id is:", id);
+    const token = localStorage.getItem("token");
+    //console.log("token is: ", token);
+    const res = await axios.post(
+      `https://notes-app-backend-311299newagain.vercel.app/verify-user`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+    //console.log(res.data);
+    //console.log("USER ID IS:", res.data._id);
+    const { data } = await axios.get(
+      `https://notes-app-backend-311299newagain.vercel.app/home/${res.data._id}`
+    );
+    dispatch(SETID(res.data._id));
+    localStorage.setItem("user-id", res.data._id);
     dispatch(LoggedInUser(data));
     setLoading(false);
-    console.log(data);
+    //console.log(data);
 
-    // if (data == "Please login to continue") {
-    //   if (!user.id) navigate("/");
-    //   else navigate(`/home/${user.id}`);
-    // }
+    if (data == "User not found") {
+      // if (!user.id) navigate("/notes-app-31");
+      alert("not found.....");
+    } else {
+      navigate(`/notes-app-31/home/${res.data._id}`);
+    }
   };
   useEffect(() => {
-    console.log(document.cookie);
-    if (document.cookie.startsWith("user-cookie")) {
+    //console.log(document.cookie);
+    if (localStorage.getItem("token")) {
       fetchData();
-      var cookie = decodeURIComponent(document.cookie);
-      var userrId = cookie.substring(15, cookie.length - 1);
-      console.log("cookie:", userrId);
-      console.log("is equal:", userrId == id);
-      if ((userrId == id) == false) {
-        navigate(`/home/${userrId}`);
-      }
     } else {
-      navigate("/");
+      navigate("/notes-app-31/");
     }
   }, []);
   return (
@@ -62,10 +73,10 @@ const HomePage = () => {
             <button
               className="btn btn-outline-primary rounded-circle btn-lg"
               onClick={() => {
-                navigate(`/home/profile/${id}`);
+                navigate(`/notes-app-31/home/profile/${USERID}`);
               }}
             >
-              <i class="fa-regular fa-user"></i>
+              <i className="fa-regular fa-user"></i>
             </button>
           </div>
           <div className="d-flex justify-content-center w-full mb-4">

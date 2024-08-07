@@ -9,23 +9,36 @@ const Login = () => {
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post(
-      "http://localhost:3001/login",
-      data1,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+    setChangeBtnState("Please wait..");
+    if (data1.name !== "" && data1.password !== "") {
+      console.log(data1.name);
+      const { data } = await axios.post(
+        "https://notes-app-backend-311299newagain.vercel.app/login",
+        data1,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log("returned data while login: ", data);
+      setMessage(data.msg);
+      if (data.msg == "Login success") {
+        localStorage.setItem("token", data.token);
+        setChangeBtnState("Redirecting");
+        setTimeout(() => {
+          navigate(`/notes-app-31/home/${data.user}`);
+        }, 2000);
+        setMessage(data.msg);
+      } else {
+        setChangeBtnState("Submit");
+        // setMessage("Password is incorrect");
+        setMessage(data.msg);
       }
-    );
-    console.log("returned data while login: ", data);
-    setMessage(data.msg);
-    if (data.msg == "Login success") {
-      setChangeBtnState("Redirecting");
-      setTimeout(() => {
-        navigate(`/home/${data.user}`);
-      }, 3000);
+    } else {
+      setChangeBtnState("Submit");
+      setMessage("Please enter all the fields");
     }
   };
   return (
@@ -37,9 +50,9 @@ const Login = () => {
           onSubmit(e);
         }}
       >
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
+            Email<i class="fa-solid fa-envelope mx-2"></i>
           </label>
           <input
             type="email"
@@ -50,9 +63,10 @@ const Login = () => {
             name="email"
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label htmlFor="exampleInputPassword1" className="form-label">
             Password
+            <i class="fa-solid fa-lock mx-2"></i>
           </label>
           <input
             type="password"
@@ -68,12 +82,17 @@ const Login = () => {
     Check me out
   </label>
 </div> */}
-        {message == "Login success" ? (
-          <div className="text-success mb-4">{message}</div>
-        ) : (
-          <div className="text-danger mb-4">{message}</div>
-        )}
-        <button type="submit" className="btn btn-primary">
+        <p
+          className="mb-4"
+          style={{ color: `${message == "Login success" ? "green" : "red"}` }}
+        >
+          {message}
+        </p>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={changeBtnState == "Submit" ? false : true}
+        >
           {changeBtnState}
         </button>
       </form>

@@ -11,8 +11,9 @@ const ProfilePage = () => {
   const [updateProfileShow, setUpdateProfileShow] = useState(false);
   const id = useParams();
   const [loading, setLoading] = useState(true);
+  const [loadingWhenUpdate, setLoadingWhenUpdate] = useState(false);
   const user = useSelector((state) => {
-    console.log("inside profile:the states are: ", state);
+    //console.log("inside profile:the states are: ", state);
     return state.LoggedInUser;
   });
   const [userDetails, setUserDetails] = useState({});
@@ -23,30 +24,30 @@ const ProfilePage = () => {
     const fetchIt = async () => {
       try {
         const { data } = await axios.post(
-          `http://localhost:3001/user-details/${id.id}`
+          `https://notes-app-backend-311299newagain.vercel.app/user-details/${id.id}`
         );
-        console.log("data is : ", data);
+        //console.log("data is : ", data);
         setUserDetails(data);
         const { name, email } = data.data;
         dispatch({
           type: "SET_LOGGEDIN_USER",
           payload: { name: name, email: email },
         });
-        console.log("this is profile:", data);
+        //console.log("this is profile:", data);
         setLoading(false);
       } catch (err) {
-        console.log(err.message);
+        //console.log(err.message);
       }
     };
     fetchIt();
   }, []);
-  console.log("inside profile , id is:", id.id);
+  //console.log("inside profile , id is:", id.id);
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">
       <button
         className="btn btn-outline-primary align-self-start mb-4"
         onClick={() => {
-          navigate(`/home/${id.id}`);
+          navigate(`/notes-app-31/home/${id.id}`);
         }}
       >
         Home
@@ -136,7 +137,9 @@ const ProfilePage = () => {
                     <label for="email">Email</label>
                     <input
                       type="email"
+                      readOnly={true}
                       className="form-control"
+                      value={user.email}
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -162,18 +165,27 @@ const ProfilePage = () => {
                       placeholder="Phone"
                     />
                   </div>
+                  <div
+                    className="alert alert-warning"
+                    style={{ fontSize: "13px" }}
+                  >
+                    <b> Note:</b> You can't update the email
+                  </div>
                   <button
                     type="submit"
+                    disabled={loadingWhenUpdate ? true : false}
                     className="btn btn-primary"
                     onClick={() => {
+                      setLoadingWhenUpdate(true);
                       const update = async () => {
                         const { data } = await axios.post(
-                          `http://localhost:3001/profile-update/${id.id}`,
+                          `https://notes-app-backend-311299newagain.vercel.app/profile-update/${id.id}`,
                           userDetails
                         );
-                        console.log(data);
+                        //console.log(data);
                         if (data.msg == "Success") {
                           setEditingMode(false);
+                          setLoadingWhenUpdate(false);
                           //   dispatch(UserProfile(data.data));
                           dispatch({
                             type: "SET_LOGGEDIN_USER",
@@ -186,7 +198,7 @@ const ProfilePage = () => {
                       update();
                     }}
                   >
-                    Submit
+                    {loadingWhenUpdate ? "Please wait" : "Submit"}
                   </button>
                 </form>
               </div>

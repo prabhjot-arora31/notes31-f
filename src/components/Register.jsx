@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUserData } from "../redux/actions/actions";
 const Register = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, seterror] = useState("");
+  const navigate = useNavigate();
   const user = useSelector((state) => {
-    console.log(state);
+    //console.log(state);
     return state.User;
   });
   const [userData, setUserData] = useState(user);
@@ -16,35 +18,53 @@ const Register = () => {
     e.preventDefault();
     dispatch(SetUserData(userData));
     setLoading(true);
-    const { data } = await axios
-      .post(
-        "http://localhost:3001/register",
-        userData
-      )
-      .catch((err) => {
-        console.log(err.message);
-      });
-    setLoading(false);
-    dispatch(SetUserData({ name: "", email: "", password: "" }));
-    if (data.msg == "User created")
-      setMessage(`Registration Successful of ${data.email}`);
-    setUserData({ name: "", email: "", password: "" });
-    console.log(data);
+    if (
+      userData.name != "" &&
+      userData.email !== "" &&
+      userData.password !== ""
+    ) {
+      if (userData.password.length < 8) {
+        seterror("Password length must be 8 characters.");
+        setLoading(false);
+      } else {
+        const { data } = await axios
+          .post(
+            "https://notes-app-backend-311299newagain.vercel.app/register",
+            userData
+          )
+          .catch((err) => {
+            //console.log(err.message);
+          });
+        setLoading(false);
+        dispatch(SetUserData({ name: "", email: "", password: "" }));
+        if (data.msg == "User created") setMessage(`Registration Successful`);
+        setUserData({ name: "", email: "", password: "" });
+        //console.log(data);
+        seterror("");
+        setTimeout(() => {
+          navigate("/notes-app-31/login");
+        }, 2000);
+      }
+    } else {
+      // alert("PLease enter all the fieldas");
+      seterror("Please enter all the fields");
+      setLoading(false);
+    }
   };
   return (
     <div>
       <form
         className="p-4"
         onSubmit={(e) => {
-          // action="http://localhost:3001/register"
+          // action="https://notes-app-backend-311299newagain.vercel.app/register"
           onSubmit(e);
         }}
         method="post"
         style={{ maxWidth: "400px", margin: "0 auto" }}
       >
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label htmlFor="exampleInputName1" className="form-label">
-            Name
+            Name <i class="fa-solid fa-user mx-2"></i>
           </label>
           <input
             type="text"
@@ -55,9 +75,10 @@ const Register = () => {
             name="name"
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
+            Email
+            <i class="fa-solid fa-envelope mx-2"></i>
           </label>
           <input
             type="email"
@@ -70,9 +91,10 @@ const Register = () => {
             aria-describedby="emailHelp"
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label htmlFor="exampleInputPassword1" className="form-label">
             Password
+            <i class="fa-solid fa-lock mx-2"></i>
           </label>
           <input
             type="password"
@@ -91,8 +113,13 @@ const Register = () => {
           </label>
         </div> */}
         {message != "" && <p className="text-success">{message}</p>}
-        <button type="submit" className="btn btn-primary">
-          {loading == true ? "Loading" : "Submit"}
+        {error != "" && <p className="text-danger">{error}</p>}
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={loading == true ? true : false}
+        >
+          {loading == true ? "Please wait..." : "Submit"}
         </button>
       </form>
     </div>

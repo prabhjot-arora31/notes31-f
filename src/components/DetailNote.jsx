@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ViewDetail } from "../redux/actions/actions";
+import { DeleteNote, ViewDetail } from "../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -9,37 +9,44 @@ const DetailNote = () => {
   const [isNoteShareable, setIsNoteShareable] = useState();
   const detailNote = useSelector((state) => state.ViewNoteDetail);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [viewDetailLoading, setViewDetailLoading] = useState(true);
   const [isViewDetail, setIsViewDetail] = useState(false);
+  const USERID = useSelector((state) => {
+    //console.log(state);
+    return state.SetIdReducer;
+  });
+
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
+
   const viewNoteDetail = useSelector((state) => state.ViewNoteDetail);
   const [actualData, setActualData] = useState({});
-  console.log("viewNoteDetail", viewNoteDetail);
+  //console.log("viewNoteDetail", viewNoteDetail);
   const [userId, setuserId] = useState("");
   const [editData, setEditData] = useState({
     title: "",
     desc: "",
     isShareable: false,
   });
+
   const getDetail = async () => {
     setIsViewDetail(true);
-    var cookie = decodeURIComponent(document.cookie);
-    var userrId = cookie.substring(15, cookie.length - 1);
-    setuserId(userrId);
+    setuserId(USERID);
+    const userId2 = localStorage.getItem("user-id");
     const { data } = await axios.post(
-      `http://localhost:3001/view-note/${id}`,
+      `https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`,
       {
-        id: userrId,
+        id: userId2,
       }
     );
-    console.log(data);
+    //console.log(data);
     if (data.msg == "Success") {
       setIsNoteShareable(true);
       setActualData(data);
       dispatch(ViewDetail(data.data));
       setViewDetailLoading(false);
-      console.log("data.data.title is:", data.data.title);
+      //console.log("data.data.title is:", data.data.title);
       setEditData({
         title: data.data.title,
         desc: data.data.desc,
@@ -60,6 +67,19 @@ const DetailNote = () => {
       dispatch(ViewDetail({}));
     };
   }, []);
+  const deleteNote = async (noteId) => {
+    //console.log("id is:", noteId);
+    const { data } = await axios.post(
+      `https://notes-app-backend-311299newagain.vercel.app/delete-note/${noteId}`
+    );
+    //console.log("after deleting", data);
+    if (data.msg == "Deleted note") {
+      dispatch(DeleteNote(data.data));
+      //console.log("navigating.....");
+      navigate(`/notes-app-31/home/${userId}`);
+    }
+    //console.log(data);
+  };
   return (
     <div>
       {viewDetailLoading == true && Object.keys(detailNote).length <= 0 ? (
@@ -72,14 +92,14 @@ const DetailNote = () => {
           </p>
         </div>
       ) : isNoteShareable == false ? (
-        <h3 className="text-danger fs-lg m-4 font-bold">
-          Sorry. This note is not shearable.
+        <h3 className="text-danger fs-lg m-4 font-bold text-center">
+          Sorry. This note is not shareable.
         </h3>
       ) : (
-        <div className="d-flex p-4 flex-column align-items-start">
+        <div className="d-flex p-4 flex-column align-items-center container p-4">
           <button
             onClick={() => {
-              navigate(`/home/${userId}`);
+              navigate(`/notes-app-31/home/${localStorage.getItem("user-id")}`);
             }}
             className="mb-4 mt-4 btn btn-primary"
           >
@@ -87,26 +107,62 @@ const DetailNote = () => {
           </button>
 
           {editMode == false ? (
-            <div className="d-flex gap-4  align-items-center">
-              {/* detailNotes.title */}
-              <div className="card mt-4 border-dark" style={{ width: "18rem" }}>
-                <div className="card-body">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h5 className="card-title">{detailNote.title}</h5>
-                  </div>
-                  <p className="card-text">{detailNote.desc}</p>
+            <div>
+              {actualData.data && actualData.data.isShareable == false ? (
+                <div className="d-flex align-items-center justify-content-center">
+                  <button className="btn btn-outline-primary  btn-md">
+                    <i className="fa-solid fa-lock"></i>
+                  </button>
+                  <p className="m-0 mx-2 text-primary fs-6">
+                    This note is private
+                  </p>
                 </div>
-              </div>
-              {/* end */}
-              <div>
-                <button
-                  className="btn btn-outline-primary btn-sm"
-                  onClick={() => {
-                    setEditMode(true);
-                  }}
+              ) : (
+                <div className="d-flex align-items-center justify-content-center">
+                  <button className="btn btn-outline-success btn-md">
+                    <i className="fa-solid fa-share"></i>
+                  </button>
+                  <p className="m-0 mx-2 text-success fs-6">
+                    This note is shareable
+                  </p>
+                </div>
+              )}
+              <div className="d-flex gap-4  align-items-center justify-content-center flex-wrap">
+                {/* detailNotes.title */}
+                <div
+                  className="card mt-4 border-dark"
+                  style={{ width: "20rem" }}
                 >
-                  <i className="fa-regular fa-pen-to-square"></i>{" "}
-                </button>
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h4 className="card-title">{detailNote.title}</h4>
+                    </div>
+                    <p className="card-text fs-5">{detailNote.desc}</p>
+                  </div>
+                </div>
+                {/* end */}
+                <div className="d-flex gap-2">
+                  <button
+                    className="btn btn-outline-primary btn-md"
+                    onClick={() => {
+                      setEditMode(true);
+                    }}
+                  >
+                    <i className="fa-regular fa-pen-to-square"></i>{" "}
+                    {/* <i className=""></i> */}
+                    {/* <i className="simple-icon">share_disabled</i> */}
+                    {/* <i className="bi bi-slash"></i> */}
+                  </button>
+
+                  <button
+                    className="btn btn-outline-danger btn-md"
+                    onClick={() => {
+                      deleteNote(detailNote._id);
+                    }}
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
             </div>
           ) : (
@@ -172,22 +228,25 @@ const DetailNote = () => {
                     </div>
                     <button
                       className="btn btn-primary"
+                      disabled={loading ? true : false}
                       onClick={() => {
+                        setLoading(true);
                         const updateNote = async () => {
                           const { data } = await axios.post(
-                            `http://localhost:3001/update-note/${id}`,
+                            `https://notes-app-backend-311299newagain.vercel.app/update-note/${id}`,
                             editData
                           );
-                          console.log(data);
+                          //console.log(data);
                           if (data.msg == "Success") {
                             dispatch(ViewDetail(data.data));
+                            setLoading(false);
                             setEditMode(false);
                           }
                         };
                         updateNote();
                       }}
                     >
-                      Submit
+                      {loading ? "Please wait" : "Submit"}
                     </button>
                   </form>
                 </div>
@@ -197,7 +256,7 @@ const DetailNote = () => {
                     setEditMode(false);
                   }}
                 >
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
             </>

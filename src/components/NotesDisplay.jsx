@@ -23,7 +23,7 @@ const NotesDisplay = () => {
   });
   const dispatch = useDispatch();
   const viewNote = (id) => {
-    navigate(`/note/${id}`);
+    navigate(`/notes-app-31/note/${id}`);
   };
   const [showShareDialog, setShowShareDialog] = useState({
     show: false,
@@ -35,136 +35,17 @@ const NotesDisplay = () => {
   const deleteNote = async (id) => {
     console.log("id is:", id);
     const { data } = await axios.post(
-      `http://localhost:3001/delete-note/${id}`
+      `https://notes-app-backend-311299newagain.vercel.app/delete-note/${id}`
     );
-    console.log("after deleting", data);
+    //console.log("after deleting", data);
     if (data.msg == "Deleted note") dispatch(DeleteNote(data.data));
-    console.log(data);
+    //console.log(data);
   };
   const user = useSelector((state) => state.LoggedInUser);
   return (
     <div>
       {isViewDetail ? (
-        <div>
-          {viewDetailLoading == true && Object.keys(detailNote).length <= 0 ? (
-            <div>Loading...</div>
-          ) : (
-            <div className="d-flex flex-column align-items-start">
-              <button
-                onClick={() => {
-                  setIsViewDetail(false);
-                  dispatch(ViewDetail({}));
-                  setViewDetailLoading(true);
-                  setEditMode(false);
-                }}
-                className="mb-4 mt-4 btn btn-primary"
-              >
-                View all Notes
-              </button>
-
-              {editMode == false ? (
-                <div className="d-flex gap-4  align-items-center">
-                  {/* detailNotes.title */}
-                  <div
-                    className="card mt-4 border-dark"
-                    style={{ width: "18rem" }}
-                  >
-                    <div className="card-body">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <h5 className="card-title">{detailNote.title}</h5>
-                      </div>
-                      <p className="card-text">{detailNote.desc}</p>
-                    </div>
-                  </div>
-                  {/* end */}
-                  <div>
-                    <button
-                      className="btn btn-outline-primary btn-sm"
-                      onClick={() => {
-                        setEditMode(true);
-                      }}
-                    >
-                      <i className="fa-regular fa-pen-to-square"></i>{" "}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <h5 className="mb-4">Edit Note</h5>
-                  <div className="d-flex align-items-start gap-4 flex-column-reverse border-start border-end rounded border-top border-bottom p-4 border-dark">
-                    <div>
-                      <form>
-                        <div className="mb-3">
-                          <label for="title" className="form-label">
-                            Title
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="title"
-                            value={editData.title}
-                            onChange={(e) => {
-                              setEditData({
-                                ...editData,
-                                title: e.target.value,
-                              });
-                            }}
-                            aria-describedby="titleHelp"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label for="desc" className="form-label">
-                            Description
-                          </label>
-                          <textarea
-                            type="text"
-                            value={editData.desc}
-                            onChange={(e) => {
-                              setEditData({
-                                ...editData,
-                                desc: e.target.value,
-                              });
-                            }}
-                            className="form-control"
-                            id="desc"
-                          />
-                        </div>
-                        <div className="mb-3 form-check">
-                          <input
-                            type="checkbox"
-                            checked={editData.isShareable}
-                            onChange={(e) => {
-                              setEditData({
-                                ...editData,
-                                isShareable: e.target.checked,
-                              });
-                            }}
-                            className="form-check-input"
-                            id="shareable"
-                          />
-                          <label className="form-check-label" for="shareable">
-                            Wanna make shareable?
-                          </label>
-                        </div>
-                        <button type="submit" className="btn btn-primary">
-                          Submit
-                        </button>
-                      </form>
-                    </div>
-                    <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => {
-                        setEditMode(false);
-                      }}
-                    >
-                      <i class="fa-solid fa-xmark"></i>
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+        <div></div>
       ) : (
         <div>
           <div className="d-flex mt-4 w-full justify-content-between">
@@ -181,11 +62,11 @@ const NotesDisplay = () => {
           {/* search functionality */}
           {/* <div className="container mb-4 mt-4 ">
             <form
-              class="d-flex justify-content-center collapse navbar-collapse"
+              className="d-flex justify-content-center collapse navbar-collapse"
               onSubmit={(e) => e.preventDefault()}
             >
               <input
-                class="form-control me-2 border-dark"
+                className="form-control me-2 border-dark"
                 type="search"
                 placeholder="Search"
                 onChange={(e) => {
@@ -214,6 +95,7 @@ const NotesDisplay = () => {
               user.notes.map((ele, id) => {
                 return (
                   <div
+                    key={id}
                     className="card mt-4 border-dark"
                     style={{
                       width: "19rem",
@@ -232,15 +114,19 @@ const NotesDisplay = () => {
                         alignSelf: "center",
                         display: "flex",
                         justifyContent: "center",
+                        overflow: "hidden",
                       }}
                     >
                       <img
-                        style={{ width: "150px", margin: "0 auto" }}
+                        style={{
+                          width: "150px",
+                          margin: "0 auto",
+                        }}
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdqL2-rFtYBqHHiSSxBP2pKCRJqiyV0Yb89w&s"
                       />
                     </div>
                     <div style={{ zIndex: "10" }} className="card-body">
-                      {ele.isShareable == true && (
+                      {ele.isShareable == true ? (
                         <button
                           className="btn btn-outline-success mb-2 btn-sm"
                           onClick={() => {
@@ -248,6 +134,10 @@ const NotesDisplay = () => {
                           }}
                         >
                           <i className="fa-solid fa-share"></i>
+                        </button>
+                      ) : (
+                        <button className="btn btn-outline-primary mb-2 btn-sm">
+                          <i className="fa-solid fa-lock"></i>
                         </button>
                       )}
                       {ele.isShareable == true &&
@@ -265,7 +155,7 @@ const NotesDisplay = () => {
                             >
                               X
                             </p>
-                            <p className="m-0">https://localhost:5173/note</p>
+                            <p className="m-0">**************************</p>
                             <span></span>
                             <button
                               className="btn ml-sm-3 btn-success btn-sm"
@@ -274,7 +164,7 @@ const NotesDisplay = () => {
                                   navigator.clipboard
                                     .writeText(
                                       `
-                      http://localhost:5173/note/${ele._id}
+                      https://prabhjot-arora31.github.io/notes-app-31/note/${ele._id}
                                     `
                                     )
                                     .then(() => {

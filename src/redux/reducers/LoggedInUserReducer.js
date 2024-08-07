@@ -7,7 +7,8 @@ const LoggedInUserReducer = (state = {}, { type, payload }) => {
     case "DELETE_NOTE":
       return {
         ...state,
-        notes: state.notes.filter((ele) => ele._id != payload._id),
+        notes:
+          state.notes && state.notes.filter((ele) => ele._id != payload._id),
       };
     default:
       return state;

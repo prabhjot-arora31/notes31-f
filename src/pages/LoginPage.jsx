@@ -12,7 +12,7 @@ const LoginPage = () => {
         className="d-flex mt-4 justify-content-center align-items-center w-100 flex-column"
       >
         <p style={{ margin: 0 }}>Not registered?</p>
-        <Link to="/" className="btn btn-secondary my-2">
+        <Link to="/notes-app-31/" className="btn btn-secondary my-2">
           Register
         </Link>
       </div>

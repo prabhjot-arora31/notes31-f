@@ -51,3 +51,17 @@ export const SetToast = (data) => {
     payload: data,
   };
 };
+
+export const SetNotification = (data) => {
+  return {
+    type: "SET_NOTIFICATION",
+    payload: data,
+  };
+};
+
+export const SETID = (data) => {
+  return {
+    type: "SETID",
+    payload: data,
+  };
+};
