@@ -24,14 +24,14 @@ const ProfilePage = () => {
     const fetchIt = async () => {
       try {
         const { data } = await axios.post(
-          `https://notes-app-backend-311299newagain.vercel.app/user-details/${id.id}`
+          `http://localhost:3001/user-details/${id.id}`
         );
         //console.log("data is : ", data);
         setUserDetails(data);
-        const { name, email } = data.data;
+        const { name, email, phone } = data.data;
         dispatch({
           type: "SET_LOGGEDIN_USER",
-          payload: { name: name, email: email },
+          payload: { name: name, email: email, phone: phone },
         });
         //console.log("this is profile:", data);
         setLoading(false);
@@ -40,6 +40,7 @@ const ProfilePage = () => {
       }
     };
     fetchIt();
+    console.log("user is:", user);
   }, []);
   //console.log("inside profile , id is:", id.id);
   return (
@@ -73,6 +74,7 @@ const ProfilePage = () => {
               <div className="mt-4 text-center">
                 <h4>Name: {user.name}</h4>
                 <h4>Email: {user.email}</h4>
+                {user.phone && <h4>Phone: {user.phone}</h4>}
               </div>
               <div className="mt-4 mb-4">
                 <button
@@ -108,7 +110,7 @@ const ProfilePage = () => {
 
                 <form
                   onSubmit={(e) => e.preventDefault()}
-                  className="mt-4 d-flex flex-column align-items-center gap-4 p-4 border-dark border-start border-end border-top border-bottom rounded"
+                  className="mt-4 d-flex mb-4 flex-column align-items-center gap-4 p-4 border-dark border-start border-end border-top border-bottom rounded"
                 >
                   <div className="align-self-start">
                     <button
@@ -154,6 +156,7 @@ const ProfilePage = () => {
                     <label for="phone">Phone</label>
                     <input
                       type="number"
+                      value={user.phone}
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -179,7 +182,7 @@ const ProfilePage = () => {
                       setLoadingWhenUpdate(true);
                       const update = async () => {
                         const { data } = await axios.post(
-                          `https://notes-app-backend-311299newagain.vercel.app/profile-update/${id.id}`,
+                          `http://localhost:3001/profile-update/${id.id}`,
                           userDetails
                         );
                         //console.log(data);
@@ -200,6 +203,9 @@ const ProfilePage = () => {
                   >
                     {loadingWhenUpdate ? "Please wait" : "Submit"}
                   </button>
+                  <p className="btn btn-sm btn-outline-primary">
+                    Update password?{" "}
+                  </p>
                 </form>
               </div>
             </>

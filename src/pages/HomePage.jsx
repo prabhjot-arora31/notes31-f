@@ -22,7 +22,7 @@ const HomePage = () => {
     const token = localStorage.getItem("token");
     //console.log("token is: ", token);
     const res = await axios.post(
-      `https://notes-app-backend-311299newagain.vercel.app/verify-user`,
+      `http://localhost:3001/verify-user`,
       {},
       {
         headers: {
@@ -33,7 +33,7 @@ const HomePage = () => {
     //console.log(res.data);
     //console.log("USER ID IS:", res.data._id);
     const { data } = await axios.get(
-      `https://notes-app-backend-311299newagain.vercel.app/home/${res.data._id}`
+      `http://localhost:3001/home/${res.data._id}`
     );
     dispatch(SETID(res.data._id));
     localStorage.setItem("user-id", res.data._id);

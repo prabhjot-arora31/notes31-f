@@ -20,7 +20,7 @@ const NoteCreator = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `https://notes-app-backend-311299newagain.vercel.app/create-note/${user.id}`,
+        `http://localhost:3001/create-note/${user.id}`,
         data1
       );
       setMessage(data.msg);
@@ -49,7 +49,16 @@ const NoteCreator = () => {
           submit(e);
         }}
         className="w-50 border-top border-end border-start border-bottom mt-4 p-4 border-secondary border-info rounded"
+        style={{ minWidth: "300px", margin: "0.4rem" }}
       >
+        <p
+          className="btn btn-outline-danger btn-sm mb-4"
+          onClick={() => {
+            dispatch(SwitchDisplayAndCreateNote("DISPLAY"));
+          }}
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </p>
         <h4>Create note</h4>
         <div className="mb-3 mt-4 ">
           <label for="title" className="form-label">
