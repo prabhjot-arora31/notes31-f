@@ -12,6 +12,11 @@ const DetailNote = () => {
   const [loading, setLoading] = useState(false);
   const [viewDetailLoading, setViewDetailLoading] = useState(true);
   const [isViewDetail, setIsViewDetail] = useState(false);
+  const [error, seterror] = useState("");
+  const [ACTUALDATA, setACTUALDATA] = useState({});
+  const NoNoteFoundErrorReducer = useSelector(
+    (state) => state.NoNoteFoundErrorReducer
+  );
   const USERID = useSelector((state) => {
     //console.log(state);
     return state.SetIdReducer;
@@ -37,10 +42,12 @@ const DetailNote = () => {
     const { data } = await axios.post(
       `https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`,
       {
-        id: userId2,
+        id: userId2 && "",
       }
     );
-    //console.log(data);
+    setACTUALDATA(data);
+    console.log("ACTUA DATA:", ACTUALDATA);
+    console.log(data);
     if (data.msg == "Success") {
       setIsNoteShareable(true);
       setActualData(data);
@@ -59,6 +66,14 @@ const DetailNote = () => {
     } else if (data.msg == "Failure") {
       setIsNoteShareable(false);
       dispatch(ViewDetail({ isShareable: false }));
+    } else if (data.msg == "Failure, no note") {
+      // console.log("part runned");
+      dispatch({ type: "SET_NO_NOTE_FOUND", payload: "No note found" });
+      console.log("no note err: ", NoNoteFoundErrorReducer);
+      await seterror("No Note found");
+      console.log("error is:", error);
+      console.log("data.desc: ", data.desc);
+      console.log("len of error", error.length);
     }
   };
   useEffect(() => {
@@ -67,6 +82,12 @@ const DetailNote = () => {
       dispatch(ViewDetail({}));
     };
   }, []);
+  useEffect(() => {
+    console.log("ACTUADATA:", ACTUALDATA);
+
+    return () => {};
+  }, [ACTUALDATA]);
+
   const deleteNote = async (noteId) => {
     //console.log("id is:", noteId);
     const { data } = await axios.post(
@@ -82,7 +103,10 @@ const DetailNote = () => {
   };
   return (
     <div>
-      {viewDetailLoading == true && Object.keys(detailNote).length <= 0 ? (
+      {error != "" &&
+      viewDetailLoading == true &&
+      detailNote.length > 0 &&
+      Object.keys(detailNote).length <= 0 ? (
         <div>
           <p className="rounded-circle p-4 fa-3x d-flex mt-lg-5 justify-content-center">
             <i
@@ -95,6 +119,8 @@ const DetailNote = () => {
         <h3 className="text-danger fs-lg m-4 font-bold text-center">
           Sorry. This note is not shareable.
         </h3>
+      ) : error != "" ? (
+        <h3 className="text-danger fs-lg m-4 font-bold text-center">{error}</h3>
       ) : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
           {localStorage.getItem("user-id") && (
