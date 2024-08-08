@@ -156,7 +156,8 @@ const ProfilePage = () => {
                     <label for="phone">Phone</label>
                     <input
                       type="number"
-                      value={user.phone}
+                      // value={user.phone}
+
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -165,7 +166,7 @@ const ProfilePage = () => {
                       }
                       className="form-control"
                       id="phone"
-                      placeholder="Phone"
+                      placeholder={user.phone}
                     />
                   </div>
                   <div
