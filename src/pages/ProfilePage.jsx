@@ -132,7 +132,7 @@ const ProfilePage = () => {
                       }
                       id="name"
                       aria-describedby="nameHelp"
-                      placeholder="Enter Name"
+                      placeholder={user.name}
                     />
                   </div>
                   <div className="form-group">
