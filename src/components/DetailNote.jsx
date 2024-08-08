@@ -34,9 +34,12 @@ const DetailNote = () => {
     setIsViewDetail(true);
     setuserId(USERID);
     const userId2 = localStorage.getItem("user-id");
-    const { data } = await axios.post(`https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`, {
-      id: userId2,
-    });
+    const { data } = await axios.post(
+      `https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`,
+      {
+        id: userId2,
+      }
+    );
     //console.log(data);
     if (data.msg == "Success") {
       setIsNoteShareable(true);
@@ -94,15 +97,16 @@ const DetailNote = () => {
         </h3>
       ) : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
-          {  localStorage.getItem('user-id') && <button
-            onClick={() => {
-              navigate(`/home/${localStorage.getItem("user-id")}`);
-            }}
-            className="mb-4 mt-4 btn btn-primary"
-          >
-            View all Notes
-          </button>
-          }
+          {localStorage.getItem("user-id") && (
+            <button
+              onClick={() => {
+                navigate(`/home/${localStorage.getItem("user-id")}`);
+              }}
+              className="mb-4 mt-4 btn btn-primary"
+            >
+              View all Notes
+            </button>
+          )}
           {editMode == false ? (
             <div>
               {actualData.data && actualData.data.isShareable == false ? (
@@ -115,19 +119,20 @@ const DetailNote = () => {
                   </p>
                 </div>
               ) : (
-              <div className="d-flex align-items-center justify-content-center">
-                {  localStorage.getItem('user-id') && <button className="btn btn-outline-success btn-md">
-                    <i className="fa-solid fa-share"></i>
-                  </button>
-                }
-                { localStorage.getItem('user-id') &&  <p className="m-0 mx-2 text-success fs-6">
-                    This note is shareable
-                  </p>
-                }
+                <div className="d-flex align-items-center justify-content-center">
+                  {localStorage.getItem("user-id") && (
+                    <button className="btn btn-outline-success btn-md">
+                      <i className="fa-solid fa-share"></i>
+                    </button>
+                  )}
+                  {localStorage.getItem("user-id") && (
+                    <p className="m-0 mx-2 text-success fs-6">
+                      This note is shareable
+                    </p>
+                  )}
                 </div>
-              
               )}
-              <div className="d-flex gap-4  align-items-center justify-content-center flex-wrap">
+              <div className="d-flex gap-4  align-items-center justify-content-center flex-wrap flex-column">
                 {/* detailNotes.title */}
                 <div
                   className="card mt-4 border-dark"
@@ -140,41 +145,46 @@ const DetailNote = () => {
                     <p className="card-text fs-6">{detailNote.desc}</p>
                   </div>
                 </div>
-                { !localStorage.getItem('user-id') &&  <div className="card p-4 mt-4">
-               <p className="m-0 text-center">
-                Create account now and share notes with your nearest ones 
-                 </p>
-                  <p className="btn mt-2 btn-primary" onClick={()=>{
-              navigate('/')
-            }}>Create account</p>
-                </div>
-                }
+                {!localStorage.getItem("user-id") && (
+                  <div className="card p-4 mt-4">
+                    <p className="m-0 text-center">
+                      Create account now and share notes with your nearest ones
+                    </p>
+                    <p
+                      className="btn mt-2 btn-primary"
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      Create account
+                    </p>
+                  </div>
+                )}
                 {/* end */}
-                { localStorage.getItem('user-id') &&
-                <div className="d-flex gap-2">
-                  <button
-                    className="btn btn-outline-primary btn-md"
-                    onClick={() => {
-                      setEditMode(true);
-                    }}
-                  >
-                    <i className="fa-regular fa-pen-to-square"></i>{" "}
-                    {/* <i className=""></i> */}
-                    {/* <i className="simple-icon">share_disabled</i> */}
-                    {/* <i className="bi bi-slash"></i> */}
-                  </button>
-                  
-                  <button
-                    className="btn btn-outline-danger btn-md"
-                    onClick={() => {
-                      deleteNote(detailNote._id);
-                    }}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
-                
-                </div>
-                }
+                {localStorage.getItem("user-id") && (
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn btn-outline-primary btn-md"
+                      onClick={() => {
+                        setEditMode(true);
+                      }}
+                    >
+                      <i className="fa-regular fa-pen-to-square"></i>{" "}
+                      {/* <i className=""></i> */}
+                      {/* <i className="simple-icon">share_disabled</i> */}
+                      {/* <i className="bi bi-slash"></i> */}
+                    </button>
+
+                    <button
+                      className="btn btn-outline-danger btn-md"
+                      onClick={() => {
+                        deleteNote(detailNote._id);
+                      }}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
