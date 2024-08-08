@@ -24,7 +24,7 @@ const ProfilePage = () => {
     const fetchIt = async () => {
       try {
         const { data } = await axios.post(
-          `http://localhost:3001/user-details/${id.id}`
+          `https://notes-app-backend-311299newagain.vercel.app/user-details/${id.id}`
         );
         //console.log("data is : ", data);
         setUserDetails(data);
@@ -182,7 +182,7 @@ const ProfilePage = () => {
                       setLoadingWhenUpdate(true);
                       const update = async () => {
                         const { data } = await axios.post(
-                          `http://localhost:3001/profile-update/${id.id}`,
+                          `https://notes-app-backend-311299newagain.vercel.app/profile-update/${id.id}`,
                           userDetails
                         );
                         //console.log(data);

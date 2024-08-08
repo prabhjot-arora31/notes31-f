@@ -20,7 +20,7 @@ const NoteCreator = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `http://localhost:3001/create-note/${user.id}`,
+        `https://notes-app-backend-311299newagain.vercel.app/create-note/${user.id}`,
         data1
       );
       setMessage(data.msg);

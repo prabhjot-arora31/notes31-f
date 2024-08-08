@@ -12,7 +12,7 @@ const Header = () => {
   const logout = async () => {
     const { data } = await axios
       .post(
-        "http://localhost:3001/logout",
+        "https://notes-app-backend-311299newagain.vercel.app/logout",
         {},
         { withCredentials: true }
       )

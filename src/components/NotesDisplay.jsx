@@ -35,7 +35,7 @@ const NotesDisplay = () => {
   const deleteNote = async (id) => {
     console.log("id is:", id);
     const { data } = await axios.post(
-      `http://localhost:3001/${id}`
+      `https://notes-app-backend-311299newagain.vercel.app/${id}`
     );
     //console.log("after deleting", data);
     if (data.msg == "Deleted note") dispatch(DeleteNote(data.data));

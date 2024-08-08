@@ -29,7 +29,7 @@ const Register = () => {
       } else {
         const { data } = await axios
           .post(
-            "http://localhost:3001/register",
+            "https://notes-app-backend-311299newagain.vercel.app/register",
             userData
           )
           .catch((err) => {
@@ -60,7 +60,7 @@ const Register = () => {
       <form
         className="p-4"
         onSubmit={(e) => {
-          // action="http://localhost:3001/register"
+          // action="https://notes-app-backend-311299newagain.vercel.app/register"
           onSubmit(e);
         }}
         method="post"

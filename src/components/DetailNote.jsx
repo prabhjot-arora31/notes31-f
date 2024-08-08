@@ -35,7 +35,7 @@ const DetailNote = () => {
     setuserId(USERID);
     const userId2 = localStorage.getItem("user-id");
     const { data } = await axios.post(
-      `http://localhost:3001/view-note/${id}`,
+      `https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`,
       {
         id: userId2,
       }
@@ -70,7 +70,7 @@ const DetailNote = () => {
   const deleteNote = async (noteId) => {
     //console.log("id is:", noteId);
     const { data } = await axios.post(
-      `http://localhost:3001/${noteId}`
+      `https://notes-app-backend-311299newagain.vercel.app/${noteId}`
     );
     //console.log("after deleting", data);
     if (data.msg == "Deleted note") {
@@ -233,7 +233,7 @@ const DetailNote = () => {
                         setLoading(true);
                         const updateNote = async () => {
                           const { data } = await axios.post(
-                            `http://localhost:3001/update-note/${id}`,
+                            `https://notes-app-backend-311299newagain.vercel.app/update-note/${id}`,
                             editData
                           );
                           //console.log(data);

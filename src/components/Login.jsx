@@ -13,7 +13,7 @@ const Login = () => {
     if (data1.name !== "" && data1.password !== "") {
       console.log(data1.name);
       const { data } = await axios.post(
-        "http://localhost:3001/login",
+        "https://notes-app-backend-311299newagain.vercel.app/login",
         data1,
         {
           headers: {
