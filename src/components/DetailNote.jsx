@@ -163,7 +163,8 @@ const DetailNote = () => {
                   style={{ width: "20rem" }}
                 >
                   <div className="card-body">
-                    <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex justify-content-between align-items-center flex-column">
+                      { localStorage.getItem('user-id') != detailNote.userId &&  <p className="fs-6">Note by: {detailNote.userId}</p> }
                       <h4 className="card-title">{detailNote.title}</h4>
                     </div>
                     <p className="card-text fs-6">{detailNote.desc}</p>
