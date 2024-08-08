@@ -166,9 +166,10 @@ const ProfilePage = () => {
                           newPass2.trim() != "" &&
                           old.trim() != ""
                         ) {
-                          if(newPass.trim().length <8)
+                          if(newPass.trim().length <8){
                             seterror('Password must be 8 characters long!')
-                          
+                            setLoadingForUpdatePassword(false)
+                          }
                          else if (newPass !== newPass2) {
                             seterror(
                               "Please enter the same password while re-entering."
