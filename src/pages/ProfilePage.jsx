@@ -190,6 +190,7 @@ const ProfilePage = () => {
                           className="btn btn-outline-danger btn-sm"
                           onClick={() => {
                             setShowUpdatePasswordDialog(false);
+                            seterror('')
                           }}
                         >
                           <i className="fa-solid fa-xmark"></i>
