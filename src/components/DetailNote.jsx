@@ -94,7 +94,7 @@ const DetailNote = () => {
         </h3>
       ) : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
-          <button
+          {  localStorage.getItem('user-id') && <button
             onClick={() => {
               navigate(`/home/${localStorage.getItem("user-id")}`);
             }}
@@ -102,7 +102,7 @@ const DetailNote = () => {
           >
             View all Notes
           </button>
-
+          }
           {editMode == false ? (
             <div>
               {actualData.data && actualData.data.isShareable == false ? (
@@ -138,6 +138,7 @@ const DetailNote = () => {
                   </div>
                 </div>
                 {/* end */}
+                { localStorage.getItem('user-id') &&
                 <div className="d-flex gap-2">
                   <button
                     className="btn btn-outline-primary btn-md"
@@ -150,7 +151,7 @@ const DetailNote = () => {
                     {/* <i className="simple-icon">share_disabled</i> */}
                     {/* <i className="bi bi-slash"></i> */}
                   </button>
-
+                  
                   <button
                     className="btn btn-outline-danger btn-md"
                     onClick={() => {
@@ -159,7 +160,9 @@ const DetailNote = () => {
                   >
                     <i className="fa-solid fa-trash"></i>
                   </button>
+                
                 </div>
+                }
               </div>
             </div>
           ) : (
