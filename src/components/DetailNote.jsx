@@ -168,6 +168,7 @@ const DetailNote = () => {
                       <h4 className="card-title">{detailNote.title}</h4>
                     </div>
                     <p className="card-text fs-6">{detailNote.desc}</p>
+                    <p style={{fontSize:'14px',color:'gray'}}>Created At: {detailNote.createdAt}</p>
                   </div>
                 </div>
                 {!localStorage.getItem("user-id") && (
