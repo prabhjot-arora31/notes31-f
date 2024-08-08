@@ -115,7 +115,7 @@ const ProfilePage = () => {
                   <h5 className="">Update Password</h5>
                   <div className="p-4 mt-4 border-start border-end border-dark border-top border-bottom rounded">
                     <form
-                      action="http://localhost:3001/update-password"
+                      action="https://notes-app-backend-311299newagain.vercel.app/update-password"
                       onSubmit={(e) => {
                         e.preventDefault();
                         setLoadingForUpdatePassword(true);
