@@ -48,7 +48,7 @@ const ProfilePage = () => {
       <button
         className="btn btn-outline-primary align-self-start mb-4"
         onClick={() => {
-          navigate(`/notes-app-31/home/${id.id}`);
+          navigate(`/home/${id.id}`);
         }}
       >
         Home

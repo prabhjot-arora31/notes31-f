@@ -23,7 +23,7 @@ const NotesDisplay = () => {
   });
   const dispatch = useDispatch();
   const viewNote = (id) => {
-    navigate(`/notes-app-31/note/${id}`);
+    navigate(`/note/${id}`);
   };
   const [showShareDialog, setShowShareDialog] = useState({
     show: false,
@@ -164,7 +164,7 @@ const NotesDisplay = () => {
                                   navigator.clipboard
                                     .writeText(
                                       `
-                      https://prabhjot-arora31.github.io/notes-app-31/note/${ele._id}
+                      https://prabhjot-arora31.github.io/note/${ele._id}
                                     `
                                     )
                                     .then(() => {

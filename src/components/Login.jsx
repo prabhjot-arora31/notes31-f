@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         setChangeBtnState("Redirecting");
         setTimeout(() => {
-          navigate(`/notes-app-31/home/${data.user}`);
+          navigate(`/home/${data.user}`);
         }, 2000);
         setMessage(data.msg);
       } else {

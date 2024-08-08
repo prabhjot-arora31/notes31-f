@@ -76,7 +76,7 @@ const DetailNote = () => {
     if (data.msg == "Deleted note") {
       dispatch(DeleteNote(data.data));
       //console.log("navigating.....");
-      navigate(`/notes-app-31/home/${userId}`);
+      navigate(`/home/${userId}`);
     }
     //console.log(data);
   };
@@ -99,7 +99,7 @@ const DetailNote = () => {
         <div className="d-flex p-4 flex-column align-items-center container p-4">
           <button
             onClick={() => {
-              navigate(`/notes-app-31/home/${localStorage.getItem("user-id")}`);
+              navigate(`/home/${localStorage.getItem("user-id")}`);
             }}
             className="mb-4 mt-4 btn btn-primary"
           >

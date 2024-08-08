@@ -19,15 +19,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <App />
       <Notification />
       <Routes>
-        <Route path="/notes-app-31" exact element={<RegisterPage />} />
-        <Route path="/notes-app-31/login" element={<LoginPage />} />
-        <Route exact path="/notes-app-31/home/:id" element={<HomePage />} />
-        <Route exact path="/notes-app-31/note/:id" element={<DetailNote />} />
-        <Route
-          exact
-          path="/notes-app-31/home/profile/:id"
-          element={<ProfilePage />}
-        />
+        <Route path="/" exact element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route exact path="/home/:id" element={<HomePage />} />
+        <Route exact path="/note/:id" element={<DetailNote />} />
+        <Route exact path="/home/profile/:id" element={<ProfilePage />} />
       </Routes>
     </Provider>
   </BrowserRouter>

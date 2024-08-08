@@ -43,7 +43,7 @@ const Register = () => {
           //console.log(data);
           seterror("");
           setTimeout(() => {
-            navigate("/notes-app-31/login");
+            navigate("/login");
           }, 2000);
         } else if (data.msg == "User already exists!") {
           seterror("User already exists!!");

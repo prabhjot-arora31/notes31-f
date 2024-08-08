@@ -13,8 +13,8 @@ const Notification = () => {
   });
   return (
     <>
-      {location.pathname !== "/notes-app-31/" &&
-        location.pathname !== "/notes-app-31/login" &&
+      {location.pathname !== "/" &&
+        location.pathname !== "/login" &&
         notification == true && (
           <div className=" d-flex justify-content-center w-full">
             <div className=" p-3 alert alert-warning fw-bold mt-4 border-start border-end border-top border-bottom w-full d-flex justify-content-center align-items-center gap-4">

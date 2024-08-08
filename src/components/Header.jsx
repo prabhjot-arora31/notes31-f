@@ -23,7 +23,7 @@ const Header = () => {
     if (data == "Success") {
       localStorage.clear();
       dispatch(SetNotification(true));
-      navigate("/notes-app-31/login");
+      navigate("/login");
       setLogoutState("Logout");
     }
   };
@@ -47,8 +47,8 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {location.pathname !== "/notes-app-31/" &&
-              location.pathname !== "/notes-app-31/login" && (
+            {location.pathname !== "/" &&
+              location.pathname !== "/login" && (
                 <button
                   style={{ maxWidth: "90px" }}
                   onClick={() => {

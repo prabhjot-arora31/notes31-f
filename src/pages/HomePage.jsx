@@ -39,13 +39,13 @@ const HomePage = () => {
     localStorage.setItem("user-id", res.data._id);
     dispatch(LoggedInUser(data));
     setLoading(false);
-    //console.log(data);
+    console.log(data);
 
     if (data == "User not found") {
-      // if (!user.id) navigate("/notes-app-31");
+      // if (!user.id) navigate("");
       alert("not found.....");
     } else {
-      navigate(`/notes-app-31/home/${res.data._id}`);
+      navigate(`/home/${res.data._id}`);
     }
   };
   useEffect(() => {
@@ -53,7 +53,7 @@ const HomePage = () => {
     if (localStorage.getItem("token")) {
       fetchData();
     } else {
-      navigate("/notes-app-31/");
+      navigate("/");
     }
   }, []);
   return (
@@ -73,7 +73,7 @@ const HomePage = () => {
             <button
               className="btn btn-outline-primary rounded-circle btn-lg"
               onClick={() => {
-                navigate(`/notes-app-31/home/profile/${USERID}`);
+                navigate(`/home/profile/${USERID}`);
               }}
             >
               <i className="fa-regular fa-user"></i>
