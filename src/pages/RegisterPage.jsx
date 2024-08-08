@@ -8,10 +8,10 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     //console.log(document.cookie);
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('user-id')) {
      // var cookie = decodeURIComponent(document.cookie);
       //var userrId = cookie.substring(15, cookie.length - 1);
-      navigate(`/notes-app-31/home/${USERID}`);
+      navigate(`/notes-app-31/home/${localStorage.getItem('user-id')}`);
     }
   }, []);
   return (
