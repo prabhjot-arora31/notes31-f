@@ -8,6 +8,7 @@ const DetailNote = () => {
   const { id } = useParams();
   const [isNoteShareable, setIsNoteShareable] = useState();
   const detailNote = useSelector((state) => state.ViewNoteDetail);
+  console.log("DETAIL NOTE IS:", detailNote);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [viewDetailLoading, setViewDetailLoading] = useState(true);
@@ -82,11 +83,6 @@ const DetailNote = () => {
       dispatch(ViewDetail({}));
     };
   }, []);
-  useEffect(() => {
-    console.log("ACTUADATA:", ACTUALDATA);
-
-    return () => {};
-  }, [ACTUALDATA]);
 
   const deleteNote = async (noteId) => {
     //console.log("id is:", noteId);
@@ -123,7 +119,7 @@ const DetailNote = () => {
         <h3 className="text-danger fs-lg m-4 font-bold text-center">{error}</h3>
       ) : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
-          {localStorage.getItem("user-id") && (
+          {localStorage.getItem("user-id") == detailNote.userId && (
             <button
               onClick={() => {
                 navigate(`/home/${localStorage.getItem("user-id")}`);
@@ -146,12 +142,12 @@ const DetailNote = () => {
                 </div>
               ) : (
                 <div className="d-flex align-items-center justify-content-center">
-                  {localStorage.getItem("user-id") && (
+                  {localStorage.getItem("user-id") == detailNote.userId && (
                     <button className="btn btn-outline-success btn-md">
                       <i className="fa-solid fa-share"></i>
                     </button>
                   )}
-                  {localStorage.getItem("user-id") && (
+                  {localStorage.getItem("user-id") == detailNote.userId && (
                     <p className="m-0 mx-2 text-success fs-6">
                       This note is shareable
                     </p>
@@ -187,7 +183,7 @@ const DetailNote = () => {
                   </div>
                 )}
                 {/* end */}
-                {localStorage.getItem("user-id") && (
+                {localStorage.getItem("user-id") == userId && (
                   <div className="d-flex gap-2">
                     <button
                       className="btn btn-outline-primary btn-md"
