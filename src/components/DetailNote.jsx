@@ -43,7 +43,7 @@ const DetailNote = () => {
     const { data } = await axios.post(
       `https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`,
       {
-        id: userId2 && "",
+        id: userId2
       }
     );
     setACTUALDATA(data);
@@ -101,7 +101,6 @@ const DetailNote = () => {
     <div>
       {error != "" &&
       viewDetailLoading == true &&
-      detailNote.length > 0 &&
       Object.keys(detailNote).length <= 0 ? (
         <div>
           <p className="rounded-circle p-4 fa-3x d-flex mt-lg-5 justify-content-center">
@@ -111,7 +110,7 @@ const DetailNote = () => {
             ></i>
           </p>
         </div>
-      ) : isNoteShareable != false && localStorage.getItem("user-id") != detailNote.userId  ? (
+      ) : isNoteShareable != true && localStorage.getItem("user-id") != userId  ? (
         <h3 className="text-danger fs-lg m-4 font-bold text-center">
           Sorry. This note is not shareable.
         </h3>
