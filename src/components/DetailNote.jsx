@@ -140,7 +140,7 @@ const DetailNote = () => {
                     <p className="card-text fs-6">{detailNote.desc}</p>
                   </div>
                 </div>
-                { localStorage.getItem('user-id') &&  <div className="card p-4 mt-4">
+                { !localStorage.getItem('user-id') &&  <div className="card p-4 mt-4">
                <p className="m-0 text-center">
                 Create account now and share notes with your nearest ones 
                  </p>
