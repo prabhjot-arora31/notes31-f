@@ -48,7 +48,7 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {location.pathname !== "/" &&
-              location.pathname !== "/login" && (
+              location.pathname !== "/login" && localStorage.getItem('user-id') && (
                 <button
                   style={{ maxWidth: "90px" }}
                   onClick={() => {
