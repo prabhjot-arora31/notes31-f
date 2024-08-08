@@ -115,14 +115,17 @@ const DetailNote = () => {
                   </p>
                 </div>
               ) : (
-                <div className="d-flex align-items-center justify-content-center">
-                  <button className="btn btn-outline-success btn-md">
+              <div className="d-flex align-items-center justify-content-center">
+                {  localStorage.getItem('user-id') && <button className="btn btn-outline-success btn-md">
                     <i className="fa-solid fa-share"></i>
                   </button>
-                  <p className="m-0 mx-2 text-success fs-6">
+                }
+                { localStorage.getItem('user-id') &&  <p className="m-0 mx-2 text-success fs-6">
                     This note is shareable
                   </p>
+                }
                 </div>
+              
               )}
               <div className="d-flex gap-4  align-items-center justify-content-center flex-wrap">
                 {/* detailNotes.title */}
