@@ -99,7 +99,8 @@ const DetailNote = () => {
   };
   return (
     <div>
-      {error != "" &&
+      {
+      
       viewDetailLoading == true &&
       Object.keys(detailNote).length <= 0 ? (
         <div>
@@ -114,31 +115,7 @@ const DetailNote = () => {
         <h3 className="text-danger fs-lg m-4 font-bold text-center">
           Sorry. This note is not shareable.
         </h3>
-      ) : error != "" ? (
-        <h3 className="text-danger fs-lg m-4 font-bold text-center">
-          {error}
-          <div
-            className="card p-4 mt-4"
-            style={{
-              maxWidth: "350px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            <p className="m-0 text-center fs-5" style={{}}>
-              Create account now and share notes with your nearest ones
-            </p>
-            <p
-              className="btn mt-2 btn-primary"
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Create account
-            </p>
-          </div>
-        </h3>
-      ) : (
+      )  : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
           {localStorage.getItem("user-id") == userId && (
             <button
@@ -154,12 +131,15 @@ const DetailNote = () => {
             <div>
               {actualData.data && actualData.data.isShareable == false ? (
                 <div className="d-flex align-items-center justify-content-center">
-                  <button className="btn btn-outline-primary  btn-md">
+                  { localStorage.getItem("user-id") == userId &&   <button className="btn btn-outline-primary  btn-md">
                     <i className="fa-solid fa-lock"></i>
                   </button>
+                  }
+                  { localStorage.getItem("user-id") == userId && 
                   <p className="m-0 mx-2 text-primary fs-6">
                     This note is private
                   </p>
+                  }
                 </div>
               ) : (
                 <div className="d-flex align-items-center justify-content-center">
