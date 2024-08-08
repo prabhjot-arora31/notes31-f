@@ -144,7 +144,7 @@ const DetailNote = () => {
                <p className="m-0 text-center">
                 Create account now and share notes with your nearest ones 
                  </p>
-                  <p className="btn btn-primary" onClick={()=>{
+                  <p className="btn mt-2 btn-primary" onClick={()=>{
               navigate('/')
             }}>Create account</p>
                 </div>
