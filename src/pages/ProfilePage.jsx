@@ -153,7 +153,7 @@ const ProfilePage = () => {
                                 setMsg(data.data.msg);
                                 setTimeout(() => {
                                   setShowUpdatePasswordDialog(false);
-                                }, 1000);
+                                }, 2210);
                               }
                             })
                             .catch((err) => {
