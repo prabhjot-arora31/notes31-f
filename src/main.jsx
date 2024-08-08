@@ -11,7 +11,6 @@ import store from "./redux/store.js";
 import HomePage from "./pages/HomePage.jsx";
 import DetailNote from "./components/DetailNote.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
-import Footer from "./components/Notification.jsx";
 import Notification from "./components/Notification.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
