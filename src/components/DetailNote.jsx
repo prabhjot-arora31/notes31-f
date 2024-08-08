@@ -140,6 +140,14 @@ const DetailNote = () => {
                     <p className="card-text fs-6">{detailNote.desc}</p>
                   </div>
                 </div>
+                <div className="card mt-4">
+               <p className="m-0 text-center">
+                Create account now and share notes with your nearest ones 
+                 </p>
+                  <p className="btn btn-primary" onClick={()=>{
+              navigate('/')
+            }}>Create account</p>
+                </div>
                 {/* end */}
                 { localStorage.getItem('user-id') &&
                 <div className="d-flex gap-2">
