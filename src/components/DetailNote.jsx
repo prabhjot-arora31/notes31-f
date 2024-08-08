@@ -68,13 +68,14 @@ const DetailNote = () => {
       setIsNoteShareable(false);
       dispatch(ViewDetail({ isShareable: false }));
     } else if (data.msg == "Failure, no note") {
+      navigate('/')
       // console.log("part runned");
-      dispatch({ type: "SET_NO_NOTE_FOUND", payload: "No note found" });
-      console.log("no note err: ", NoNoteFoundErrorReducer);
-      await seterror("No Note found");
-      console.log("error is:", error);
-      console.log("data.desc: ", data.desc);
-      console.log("len of error", error.length);
+    //  dispatch({ type: "SET_NO_NOTE_FOUND", payload: "No note found" });
+    //  console.log("no note err: ", NoNoteFoundErrorReducer);
+      //await seterror("No Note found");
+    //  console.log("error is:", error);
+    //  console.log("data.desc: ", data.desc);
+    //  console.log("len of error", error.length);
     }
   };
   useEffect(() => {
