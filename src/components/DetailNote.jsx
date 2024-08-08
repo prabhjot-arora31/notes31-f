@@ -111,13 +111,13 @@ const DetailNote = () => {
             ></i>
           </p>
         </div>
-      ) : isNoteShareable != true && localStorage.getItem("user-id") != userId  ? (
+      ) : isNoteShareable != true && localStorage.getItem("user-id") != detailNote.userId  ? (
         <h3 className="text-danger fs-lg m-4 font-bold text-center">
           Sorry. This note is not shareable.
         </h3>
       )  : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
-          {localStorage.getItem("user-id") == userId && (
+          {localStorage.getItem("user-id") == detailNote.userId && (
             <button
               onClick={() => {
                 navigate(`/home/${localStorage.getItem("user-id")}`);
@@ -131,11 +131,11 @@ const DetailNote = () => {
             <div>
               {actualData.data && actualData.data.isShareable == false ? (
                 <div className="d-flex align-items-center justify-content-center">
-                  { localStorage.getItem("user-id") == userId &&   <button className="btn btn-outline-primary  btn-md">
+                  { localStorage.getItem("user-id") == detailNote.userId &&   <button className="btn btn-outline-primary  btn-md">
                     <i className="fa-solid fa-lock"></i>
                   </button>
                   }
-                  { localStorage.getItem("user-id") == userId && 
+                  { localStorage.getItem("user-id") == detailNote.userId && 
                   <p className="m-0 mx-2 text-primary fs-6">
                     This note is private
                   </p>
@@ -143,12 +143,12 @@ const DetailNote = () => {
                 </div>
               ) : (
                 <div className="d-flex align-items-center justify-content-center">
-                  {localStorage.getItem("user-id") == userId && (
+                  {localStorage.getItem("user-id") == detailNote.userId && (
                     <button className="btn btn-outline-success btn-md">
                       <i className="fa-solid fa-share"></i>
                     </button>
                   )}
-                  {localStorage.getItem("user-id") == userId && (
+                  {localStorage.getItem("user-id") == detailNote.userId && (
                     <p className="m-0 mx-2 text-success fs-6">
                       This note is shareable
                     </p>
