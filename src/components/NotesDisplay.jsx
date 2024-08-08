@@ -164,7 +164,7 @@ const NotesDisplay = () => {
                                   navigator.clipboard
                                     .writeText(
                                       `
-                      https://prabhjot-arora31.github.io/note/${ele._id}
+                      https://notes-9931.netlify.app/note/${ele._id}
                                     `
                                     )
                                     .then(() => {
