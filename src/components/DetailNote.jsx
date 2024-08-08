@@ -116,7 +116,29 @@ const DetailNote = () => {
           Sorry. This note is not shareable.
         </h3>
       ) : error != "" ? (
-        <h3 className="text-danger fs-lg m-4 font-bold text-center">{error}</h3>
+        <h3 className="text-danger fs-lg m-4 font-bold text-center">
+          {error}
+          <div
+            className="card p-4 mt-4"
+            style={{
+              maxWidth: "350px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            <p className="m-0 text-center fs-5" style={{}}>
+              Create account now and share notes with your nearest ones
+            </p>
+            <p
+              className="btn mt-2 btn-primary"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Create account
+            </p>
+          </div>
+        </h3>
       ) : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
           {localStorage.getItem("user-id") == detailNote.userId && (
