@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Register from "../components/Register";
+import {useSelector} from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const USERID = useSelector((state)=>state.SetIdReducer)
   const navigate = useNavigate();
   useEffect(() => {
     //console.log(document.cookie);
-    if (document.cookie.startsWith("user-cookie")) {
-      var cookie = decodeURIComponent(document.cookie);
-      var userrId = cookie.substring(15, cookie.length - 1);
-      navigate(`/notes-app-31/home/${userrId}`);
+    if (localStorage.getItem('token')) {
+     // var cookie = decodeURIComponent(document.cookie);
+      //var userrId = cookie.substring(15, cookie.length - 1);
+      navigate(`/notes-app-31/home/${USERID}`);
     }
   }, []);
   return (
