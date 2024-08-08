@@ -184,7 +184,7 @@ const DetailNote = () => {
                   </div>
                 )}
                 {/* end */}
-                {localStorage.getItem("user-id") == userId && (
+                {localStorage.getItem("user-id") == detailNote.userId && (
                   <div className="d-flex gap-2">
                     <button
                       className="btn btn-outline-primary btn-md"
