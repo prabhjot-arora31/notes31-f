@@ -34,12 +34,9 @@ const DetailNote = () => {
     setIsViewDetail(true);
     setuserId(USERID);
     const userId2 = localStorage.getItem("user-id");
-    const { data } = await axios.post(
-      `https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`,
-      {
-        id: userId2,
-      }
-    );
+    const { data } = await axios.post(`https://notes-app-backend-311299newagain.vercel.app/view-note/${id}`, {
+      id: userId2,
+    });
     //console.log(data);
     if (data.msg == "Success") {
       setIsNoteShareable(true);
@@ -70,13 +67,13 @@ const DetailNote = () => {
   const deleteNote = async (noteId) => {
     //console.log("id is:", noteId);
     const { data } = await axios.post(
-      `https://notes-app-backend-311299newagain.vercel.app/${noteId}`
+      `https://notes-app-backend-311299newagain.vercel.app/delete-note/${noteId}`
     );
     //console.log("after deleting", data);
     if (data.msg == "Deleted note") {
       dispatch(DeleteNote(data.data));
       //console.log("navigating.....");
-      navigate(`/home/${userId}`);
+      navigate(`/home/${localStorage.getItem("user-id")}`);
     }
     //console.log(data);
   };
