@@ -111,7 +111,7 @@ const DetailNote = () => {
             ></i>
           </p>
         </div>
-      ) : isNoteShareable == false && localStorage.getItem("user-id") != detailNote.userId  ? (
+      ) : isNoteShareable != false && localStorage.getItem("user-id") != detailNote.userId  ? (
         <h3 className="text-danger fs-lg m-4 font-bold text-center">
           Sorry. This note is not shareable.
         </h3>
