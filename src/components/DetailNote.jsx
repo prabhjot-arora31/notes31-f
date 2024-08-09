@@ -172,7 +172,7 @@ const DetailNote = () => {
                   </div>
                 </div>
                 {localStorage.getItem('user-id') != detailNote.userId &&
-                <button className="btn btn-primary mt-4">Home</button>
+                <button className="btn btn-primary mt-4" onClick={()=>navigate('/')}>Home</button>
                 }
                 {!localStorage.getItem("user-id") && (
                   <div className="card p-4 mt-4">
