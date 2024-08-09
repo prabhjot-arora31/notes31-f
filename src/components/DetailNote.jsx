@@ -197,7 +197,7 @@ const DetailNote = () => {
                 )}
                 {/* end */}
                 {localStorage.getItem("user-id") == detailNote.userId && 
-                  isNoteShareable != true &&
+                  
                   localStorage.getItem('user-id') && localStorage.getItem('user-id').length > 0 ?
                   (
                   <div className="d-flex gap-2">
@@ -222,7 +222,7 @@ const DetailNote = () => {
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>
-                ) : <h4 className="text-danger text-center">Sorry, this note is not shareable</h4>}
+                ) : <h4 className="text-danger text-center">{ isNoteShareable != true && Sorry, this note is not shareable}</h4>}
               </div>
             </div>
           ) : (
