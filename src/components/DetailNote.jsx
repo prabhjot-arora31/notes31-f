@@ -222,7 +222,7 @@ const DetailNote = () => {
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>
-                ) : <h4 className="text-danger text-center">{ isNoteShareable != true && Sorry, this note is not shareable}</h4>}
+                ) : <h4 className="text-danger text-center m-0"></h4>}
               </div>
             </div>
           ) : (
