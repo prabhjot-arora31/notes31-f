@@ -82,7 +82,9 @@ const ProfilePage = () => {
                 {user.phone && <h4>Phone: {user.phone}</h4>}
               </div>
               <div className="mt-4 mb-4">
-                <button
+                {
+                  id == localStorage.getItem('user-id') && 
+                  <button
                   className="btn btn-primary btn-sm"
                   onClick={() => {
                     setEditingMode(true);
@@ -90,6 +92,7 @@ const ProfilePage = () => {
                 >
                   <i className="fa-solid fa-pen"></i>
                 </button>
+                }
                 <br />
                 {toast == "Success" && (
                   <>
