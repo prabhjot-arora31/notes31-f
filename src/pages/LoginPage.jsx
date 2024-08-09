@@ -1,8 +1,16 @@
-import React from "react";
+import React , {useEffect} from "react";
 import Login from "../components/Login";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
+  useEffect(() => {
+    //console.log(document.cookie);
+    if (localStorage.getItem("user-id")) {
+      // var cookie = decodeURIComponent(document.cookie);
+      //var userrId = cookie.substring(15, cookie.length - 1);
+      navigate(`/home/${localStorage.getItem("user-id")}`);
+    }
+  }, []);
   return (
     <div>
       <h3 className="text-center mb-4 mt-4">Login</h3>
