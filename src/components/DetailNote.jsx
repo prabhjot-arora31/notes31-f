@@ -118,7 +118,7 @@ const DetailNote = () => {
         </h3>
       )  : (
         <div className="d-flex p-4 flex-column align-items-center container p-4">
-          {localStorage.getItem("user-id") == detailNote.userId && (
+          {localStorage.getItem("user-id") == detailNote.userId && detailNote.title!='' && (
             <button
               onClick={() => {
                 navigate(`/home/${localStorage.getItem("user-id")}`);
