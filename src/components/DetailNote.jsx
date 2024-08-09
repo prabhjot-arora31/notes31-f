@@ -170,7 +170,7 @@ const DetailNote = () => {
                 >
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center flex-column">
-                      { localStorage.getItem('user-id') != detailNote.userId &&  <p className="fs-6">Note by: {detailNote.userId}</p> }
+                      { localStorage.getItem('user-id') != detailNote.userId &&  <p className="fs-6">Note by: <u onClick={()=>navigate(`/home/profile/${detailNote.userId}`)}> {detailNote.userId} </u></p> }
                       <h4 className="card-title">{detailNote.title}</h4>
                     </div>
                     <p className="card-text fs-6">{detailNote.desc}</p>
