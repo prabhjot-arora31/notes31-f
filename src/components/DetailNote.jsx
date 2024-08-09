@@ -197,6 +197,7 @@ const DetailNote = () => {
                 )}
                 {/* end */}
                 {localStorage.getItem("user-id") == detailNote.userId && 
+                  isNoteShareable != true &&
                   localStorage.getItem('user-id') && localStorage.getItem('user-id').length > 0 ?
                   (
                   <div className="d-flex gap-2">
