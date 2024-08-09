@@ -10,11 +10,11 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setChangeBtnState("Please wait..");
-    if (data1.name !== "" && data1.password !== "") {
+    if (data1.name.trim() !== "" && data1.password.trim() !== "") {
       console.log(data1.name);
       const { data } = await axios.post(
         "https://notes-app-backend-311299newagain.vercel.app/login",
-        data1,
+        {name:data1.name.trim(),password:data1.password.trim()},
         {
           headers: {
             "Content-Type": "application/json",
