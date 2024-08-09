@@ -171,6 +171,9 @@ const DetailNote = () => {
                     <p style={{fontSize:'14px',color:'gray'}}>Created At: {detailNote.createdAt}</p>
                   </div>
                 </div>
+                {localStorage.getItem('user-id') != detailNote.userId &&
+                <button className="btn btn-primary mt-4">Home</button>
+                }
                 {!localStorage.getItem("user-id") && (
                   <div className="card p-4 mt-4">
                     <p className="m-0 text-center">
