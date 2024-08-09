@@ -132,11 +132,11 @@ const DetailNote = () => {
             <div>
               {actualData.data && actualData.data.isShareable == false ? (
                 <div className="d-flex align-items-center justify-content-center">
-                  { localStorage.getItem("user-id") == detailNote.userId &&   <button className="btn btn-outline-primary  btn-md">
+                  { localStorage.getItem("user-id") == detailNote.userId && localStorage.getItem('user-id') &&  localStorage.getItem('user-id').length > 0 && <button className="btn btn-outline-primary  btn-md">
                     <i className="fa-solid fa-lock"></i>
                   </button>
                   }
-                  { localStorage.getItem("user-id") == detailNote.userId && 
+                  { localStorage.getItem("user-id") == detailNote.userId && localStorage.getItem('user-id') &&  localStorage.getItem('user-id').length > 0 &&
                   <p className="m-0 mx-2 text-primary fs-6">
                     This note is private
                   </p>
@@ -144,12 +144,16 @@ const DetailNote = () => {
                 </div>
               ) : (
                 <div className="d-flex align-items-center justify-content-center">
-                  {localStorage.getItem("user-id") == detailNote.userId && (
+                  {localStorage.getItem("user-id") == detailNote.userId && 
+                    localStorage.getItem('user-id') &&  localStorage.getItem('user-id').length > 0 &&
+                    (
                     <button className="btn btn-outline-success btn-md">
                       <i className="fa-solid fa-share"></i>
                     </button>
                   )}
-                  {localStorage.getItem("user-id") == detailNote.userId && (
+                  {localStorage.getItem("user-id") == detailNote.userId && 
+                    localStorage.getItem('user-id') &&  localStorage.getItem('user-id').length > 0 &&
+                    (
                     <p className="m-0 mx-2 text-success fs-6">
                       This note is shareable
                     </p>
@@ -158,7 +162,9 @@ const DetailNote = () => {
               )}
               <div className="d-flex gap-4  align-items-center justify-content-center flex-wrap flex-column">
                 {/* detailNotes.title */}
-                <div
+                { 
+                  localStorage.getItem('user-id') &&  localStorage.getItem('user-id').length > 0 && detailNote.title && detailNote.title != '' &&
+                  <div
                   className="card mt-4 border-dark"
                   style={{ width: "20rem" }}
                 >
@@ -170,7 +176,7 @@ const DetailNote = () => {
                     <p className="card-text fs-6">{detailNote.desc}</p>
                     <p style={{fontSize:'14px',color:'gray'}}>Created At: {detailNote.createdAt}</p>
                   </div>
-                </div>
+                </div> }
                 {localStorage.getItem('user-id') != detailNote.userId &&
                 <button className="btn btn-primary mt-4" onClick={()=>navigate('/')}>Home</button>
                 }
