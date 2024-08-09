@@ -50,7 +50,9 @@ const ProfilePage = () => {
   //console.log("inside profile , id is:", id.id);
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">
-      <button
+      {
+        id.id == localStorage.getItem('user-id') &&
+        <button
         className="btn btn-outline-primary align-self-start mb-4"
         onClick={() => {
           navigate(`/home/${id.id}`);
@@ -58,6 +60,7 @@ const ProfilePage = () => {
       >
         Home
       </button>
+      }
       {loading === true ? (
         <div>
           <p className="rounded-circle p-4 fa-3x d-flex mt-lg-5 justify-content-center">
