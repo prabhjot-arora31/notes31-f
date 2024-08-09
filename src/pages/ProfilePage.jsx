@@ -83,7 +83,7 @@ const ProfilePage = () => {
               </div>
               <div className="mt-4 mb-4">
                 {
-                  id == localStorage.getItem('user-id') && 
+                  id.id == localStorage.getItem('user-id') && 
                   <button
                   className="btn btn-primary btn-sm"
                   onClick={() => {
