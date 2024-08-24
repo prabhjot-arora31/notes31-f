@@ -16,6 +16,8 @@ const Register = () => {
   const dispatch = useDispatch();
   const onSubmit = async (e) => {
     e.preventDefault();
+    setMessage('')
+    setError('')
     dispatch(SetUserData(userData));
     setLoading(true);
     if (
