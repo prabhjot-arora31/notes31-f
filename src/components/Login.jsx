@@ -9,6 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
+    setMessage('')
     setChangeBtnState("Please wait..");
     if (data1.email.trim() !== "" && data1.password.trim() !== "") {
      // console.log(data1.name);
@@ -82,12 +83,13 @@ const Login = () => {
     Check me out
   </label>
 </div> */}
-        <p
+        {message && <p
           className="mb-4"
           style={{ color: `${message == "Login success" ? "green" : "red"}` }}
         >
           {message}
         </p>
+        }
         <button
           type="submit"
           className="btn btn-primary"
