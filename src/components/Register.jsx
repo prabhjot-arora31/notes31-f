@@ -17,7 +17,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setMessage('')
-    setError('')
+    seterror('')
     dispatch(SetUserData(userData));
     setLoading(true);
     if (
